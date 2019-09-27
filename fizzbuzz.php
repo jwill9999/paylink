@@ -19,13 +19,13 @@ function fizzBuzz($number)
  for ($i = 1; $i <= $number; $i++) {
 
   if ($i % 15 === 0) {
-   echo 'fizzbuzz' . "\n";
+   echo 'FIZZBUZZ' . "\n";
 
   } else if ($i % 3 === 0) {
-   echo 'Fizz' . "\n";
+   echo 'FIZZ' . "\n";
 
   } else if ($i % 5 === 0) {
-   echo 'Buzz' . "\n";
+   echo 'BUZZ' . "\n";
 
   } else {
    echo $i . "\n";

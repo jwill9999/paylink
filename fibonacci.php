@@ -47,4 +47,7 @@ $fibonacci = $memoize(function ($n) use (&$fibonacci) {
  *   @param [number] 
  *   @return number
  */
-echo $fibonacci(20);
+echo $fibonacci(5);
+echo $fibonacci(10);
+echo $fibonacci(1);
+
