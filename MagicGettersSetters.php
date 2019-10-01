@@ -5,6 +5,9 @@
 // to be extended to use new database services and therfore extend
 // the class without modification in line with SOLID principles.
 
+/**
+ * IDtabase interface
+ */
 interface IDatabase
 {
  public function __get($property);
@@ -13,7 +16,11 @@ interface IDatabase
 
 }
 
-/// database injection of database service
+/**
+ * database injection of database service
+ * @param IDatabase $database
+ * @return void
+ */
 class Db
 {
 
@@ -26,7 +33,14 @@ class Db
 
 }
 
-/// sql database
+/**
+ * SQL database class with magic getters and setters
+ * @param String $servername;
+ * @param String $username;
+ * @param String $password;
+ *
+ * @return void
+ */
 class sqlDatabase implements IDatabase
 {
 
@@ -60,14 +74,20 @@ class sqlDatabase implements IDatabase
   }
  }
 
+/**
+ *  SUDO CODE connect to my SQL database  using the connection string provided.
+ *  sudo code
+ *
+ *  @return void
+ */
  public function connect()
  {
-  // connect to my chosen database that implements an IDatabase
-  // interface using the connection string provided.
-  // sudo code
+
   try {
-//    $conn = new PDO("mysql:host={$this->servername};dbname=myDB", $this->username, $this->password);
-   //    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   /*
+   $conn = new PDO("mysql:host={$this->servername};dbname=myDB", $this->username, $this->password);
+   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    */
    echo "I am now connected to my database";
   } catch (Exception $e) {
    echo $e->getMessage();
@@ -75,9 +95,16 @@ class sqlDatabase implements IDatabase
  }
 }
 
-$sqlDatabase             = new sqlDatabase();
+$sqlDatabase = new sqlDatabase();
+
+// set values
 $sqlDatabase->servername = "localhost";
 $sqlDatabase->username   = "username";
 $sqlDatabase->password   = "password";
+
+// get values stored in sqlDatabase
+echo $sqlDatabase->servername . "\n";
+echo $sqlDatabase->username . "\n";
+echo $sqlDatabase->password . "\n";
 
 $db = new Db($sqlDatabase);
