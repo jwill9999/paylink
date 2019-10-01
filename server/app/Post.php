@@ -34,4 +34,8 @@ class Post extends Model
     protected $casts = [
         
     ];
+    public function replies(){
+        return $this->hasMany('App\Reply');
+    }
+
 }
