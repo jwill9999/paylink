@@ -6,7 +6,7 @@
 
 > To run algorithms
     : cd paylink
-    : php fibonacci.php || php fizzbuzz.php
+    : php fibonacci.php || php fizzbuzz.php || MagicGettersSetters.php
     : returns a console value 
 
 > To run laravel Server
