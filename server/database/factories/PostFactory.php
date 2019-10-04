@@ -2,7 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\posts;
+use App\Post;
+use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(Post::class, function (Faker $faker) {
@@ -10,7 +11,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'title' => $faker->sentence,
         'content' => $faker->paragraph,
         'posted_at' => now(),
-        'author_id' => function () {
+        'user_id' => function () {
             return factory(User::class)->create()->id;
         }
     ];

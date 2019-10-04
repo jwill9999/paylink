@@ -7,79 +7,106 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+     /**
+      * Index function
+      *
+      * @param Post $post
+      * @return json
+      */
+    public function index(Post $post)
     {
-        //
+        $posts = $post->all();
+
+        return view('posts.index', compact('posts'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * View a post function
      *
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @param Request $request
+     * @return json
      */
-    public function create()
+    public function show(Post $post, Request $request)
     {
-        //
+        return $post::find($request->id);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Edit a post function
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return json
      */
+    public function edit(Request $request)
+    {
+        $post = Post::find($request->id);
+        return view('posts.edit', compact('post'));
+    }
+
+     /**
+      * Create a new Post function
+      *
+      * @param Request $request
+      * @return void
+      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'text' => 'required'
+        ]);
+
+        if ($request->validated()) {
+
+            $post = new Post;
+            $post->title = $request->get('title');
+            $post->text = $request->get('text');
+
+            $post->save();
+
+
+            return redirect('/posts')->with('success', 'Post saved');
+        }
     }
+     
 
     /**
-     * Display the specified resource.
+     * Update a Post function
      *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
-    public function show(Post $post)
+    public function update(Request $request)
     {
-        //
+
+        $request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'text' => 'required',
+        ]);
+
+        $post = Post::find($request->id);
+        $post->title = $request->get('title');
+        $post->text = $request->get('text');
+        $post->save();
+
+        return  redirect('/posts')->with('success', 'Post saved and updated');
     }
+    
 
     /**
-     * Show the form for editing the specified resource.
+     * Delete a Post function
      *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param [type] $id
+     * @return void
      */
-    public function edit(Post $post)
+    public function destroy($id)
     {
-        //
-    }
+        $post = Post::find($id);
+        $post->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Post $post)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Post $post)
-    {
-        //
+        return redirect('/posts')->with('success', 'Post deleted');
     }
 }
