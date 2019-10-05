@@ -1,6 +1,10 @@
 # Paylink Technical Interview Paper answers
+<div align="center">
+ <img src="./server/public/images/blog.png" width=80% />
+</div>
 
 ## Include below are instructions for files included as part of the technical assessment.
+
 
 ```
 
