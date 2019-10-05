@@ -17,10 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/posts', 'PostController@index');
+Route::get('/home', 'PostController@index')->name('home');
+Route::get('post/create', 'PostController@create')->middleware('auth');
 Route::get('/posts/edit/{id}', 'PostController@edit')->middleware('auth');
 Route::get('/posts/{id}', 'PostController@show');
 Route::post('/posts', 'PostController@store')->middleware('auth');
-Route::post('/posts/{id}', 'PostController@update')->middleware('auth');
+Route::patch('/posts/{id}', 'PostController@update')->middleware('auth');
 Route::delete('/posts/{id}', 'PostController@destroy')->middleware('auth');

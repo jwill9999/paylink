@@ -8,17 +8,28 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
 
-     /**
-      * Index function
-      *
-      * @param Post $post
-      * @return json
-      */
-    public function index(Post $post)
+    /**
+     * Index function
+     *
+     * @param Post $post
+     * @return json
+     */
+    public function index()
     {
-        $posts = $post->all();
+        if (auth()->user()) {
+            $user = auth()->user();
+            $posts = $user->posts;
+            return view('posts.index', compact('posts'));
+        }
 
+        $posts = Post::all();
         return view('posts.index', compact('posts'));
+
+
+
+
+
+        // return view('posts.index', compact('posts'));
     }
 
     /**
@@ -42,36 +53,43 @@ class PostController extends Controller
     public function edit(Request $request)
     {
         $post = Post::find($request->id);
-        return view('posts.edit', compact('post'));
+        return view('posts.edit', ['post' => $post]);
     }
 
-     /**
-      * Create a new Post function
-      *
-      * @param Request $request
-      * @return void
-      */
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    /**
+     * Create a new Post function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request)
     {
 
-        $request->validate([
-            'title' => 'required|unique:posts|max:255',
-            'text' => 'required'
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required'
         ]);
 
-        if ($request->validated()) {
+        if ($validated) {
 
             $post = new Post;
             $post->title = $request->get('title');
-            $post->text = $request->get('text');
+            $post->content = $request->get('content');
+            $post->posted_at = now();
+            $post->user_id = auth()->user()->id;
 
             $post->save();
 
 
-            return redirect('/posts')->with('success', 'Post saved');
+            return redirect('/home')->with('success', 'Post created and saved');
         }
     }
-     
+
 
     /**
      * Update a Post function
@@ -83,18 +101,18 @@ class PostController extends Controller
     {
 
         $request->validate([
-            'title' => 'required|unique:posts|max:255',
-            'text' => 'required',
+            'title' => 'required|max:255',
+            'content' => 'required',
         ]);
 
         $post = Post::find($request->id);
         $post->title = $request->get('title');
-        $post->text = $request->get('text');
+        $post->content = $request->get('content');
         $post->save();
 
-        return  redirect('/posts')->with('success', 'Post saved and updated');
+        return  redirect('/home')->with('success', 'Post saved and updated');
     }
-    
+
 
     /**
      * Delete a Post function
@@ -107,6 +125,6 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->delete();
 
-        return redirect('/posts')->with('success', 'Post deleted');
+        return redirect('/home')->with('success', 'Post deleted');
     }
 }

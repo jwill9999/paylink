@@ -3,35 +3,42 @@
 @section('content')
 <div class="row">
     <div class="col-sm-12">
-        <h1 class="display-3">Posts</h1>
+
+        @if (auth()->user())
+
+        <h1 class="display-3">Your Posts</h1>
+        @else
+        <h1 class="display-3">All Posts</h1>
+        @endif
+        @include('partials.flash_message')
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <td>Post_id</td>
+
                     <td>Title</td>
                     <td>Content</td>
-                    <td>Posted_at</td>
-                    <td>Updated_at</td>
-                    <td>Created_at</td>
-                    <td>Owner</td>
 
+
+
+
+                    @if (auth()->user())
                     <td colspan=2>Actions</td>
+                    @endif
                 </tr>
             </thead>
             <tbody>
                 @foreach($posts as $post)
                 <tr>
-                    <td>{{$post->id}}</td>
+
                     <td>{{$post->title}} </td>
                     <td>{{$post->content}}</td>
-                    <td>{{$post->posted_at}}</td>
-                    <td>{{$post->updated_at}}</td>
-                    <td>{{$post->created_at}}</td>
-                    <td>{{$post->user_id}}</td>
+
+                    @if (auth()->user())
                     <td>
                         <a href="/posts/edit/{{$post->id}}"
                             class="btn btn-primary">Edit</a>
                     </td>
+
                     <td>
                         <form action="/posts/{{$post->id}}" method="post">
                             @csrf
@@ -40,6 +47,8 @@
                                 type="submit">Delete</button>
                         </form>
                     </td>
+                    @endif
+
                 </tr>
                 @endforeach
             </tbody>
