@@ -11,7 +11,7 @@
     : php fibonacci.php || php fizzbuzz.php || MagicGettersSetters.php
     : returns a console value 
 
-// Database UMl / database layout to be added here today
+
 > To run laravel Server
     : cd paylink/server
     : follow instruction for laravel configuration and key generation and package installation
