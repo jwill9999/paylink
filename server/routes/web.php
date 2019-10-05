@@ -18,9 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'PostController@index')->name('home');
-Route::get('post/create', 'PostController@create')->middleware('auth');
-Route::get('/posts/edit/{id}', 'PostController@edit')->middleware('auth');
+Route::get('post/create', 'PostController@create')->middleware('auth', 'can:update,post');
+Route::get('/posts/edit/{id}', 'PostController@edit')->middleware('auth', 'can:update,post');
 Route::get('/posts/{id}', 'PostController@show');
-Route::post('/posts', 'PostController@store')->middleware('auth');
-Route::patch('/posts/{id}', 'PostController@update')->middleware('auth');
-Route::delete('/posts/{id}', 'PostController@destroy')->middleware('auth');
+Route::post('/posts', 'PostController@store')->middleware('auth', 'can:update,post');
+Route::patch('/posts/{id}', 'PostController@update')->middleware('auth', 'can:update,post');
+Route::delete('/posts/{id}', 'PostController@destroy')->middleware('auth', 'can:update,post');
