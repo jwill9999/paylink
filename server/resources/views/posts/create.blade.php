@@ -1,10 +1,16 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
 @section('content')
 
 <div class="row">
     <div class="col-sm-8 offset-sm-2">
-        <h1 class="display-3">Add a new post</h1>
+        <h1 class="float-left" class="display-3">Create a new post</h1>
+        <a class="float-right m-2" href="{{ URL::previous() }}"><button
+                type="submit" class="btn btn-outline-dark">Back</button></a>
+        <a class="float-right m-2 " href="{{ url('/home') }}"><button
+                type="submit" class="btn btn-outline-primary">Home</button></a>
+    </div>
+    <div class="col-sm-8 offset-sm-2">
         <div>
             @include('partials.flash_message')
             <br />

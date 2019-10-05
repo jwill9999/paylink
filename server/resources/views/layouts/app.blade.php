@@ -49,6 +49,7 @@
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Authentication Links -->
+
                             @guest
                             <li class="nav-item">
                                 <a class="nav-link"
@@ -61,8 +62,7 @@
                             </li>
                             @endif
                             @else
-                            <a href="/home"><button class="btn btn-primary"
-                                    type="button">Posts</button></a>
+
                             <a href="/post/create"><button
                                     class="btn btn-success ml-2"
                                     type="button">Create

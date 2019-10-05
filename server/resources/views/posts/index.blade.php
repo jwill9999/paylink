@@ -3,9 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-sm-12">
-
         @if (auth()->user())
-
         <h1 class="display-3">Your Posts</h1>
         @else
         <h1 class="display-3">All Posts</h1>

@@ -14,8 +14,11 @@
 // Database UMl / database layout to be added here today
 > To run laravel Server
     : cd paylink/server
-    : follow instruction for laravel configuration and key generation
+    : follow instruction for laravel configuration and key generation and package installation
     : php artisan serve to start laravel server
+    : run php artisan migrate
+    : run php artisan db:seed
+    : login using user =  test@test.com,  password = 12345
 
 
 ```
