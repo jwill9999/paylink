@@ -24,12 +24,6 @@ class PostController extends Controller
 
         $posts = Post::all();
         return view('posts.index', compact('posts'));
-
-
-
-
-
-        // return view('posts.index', compact('posts'));
     }
 
     /**
@@ -50,14 +44,16 @@ class PostController extends Controller
      * @param Request $request
      * @return json
      */
-    public function edit(Request $request)
+    public function edit(Request $request, Post $post)
     {
         $post = Post::find($request->id);
+        $this->authorize('update', $post);
         return view('posts.edit', ['post' => $post]);
     }
 
-    public function create()
+    public function create(Post $post)
     {
+
         return view('posts.create');
     }
 
@@ -97,8 +93,10 @@ class PostController extends Controller
      * @param Request $request
      * @return void
      */
-    public function update(Request $request)
+    public function update(Request $request, Post $post)
     {
+
+
 
         $request->validate([
             'title' => 'required|max:255',
