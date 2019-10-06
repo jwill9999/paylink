@@ -28,9 +28,11 @@
                 @foreach($posts as $post)
                 <tr>
 
-                    <td>{{$post->title}} </td>
-                    <td>{{$post->content}}</td>
 
+                    <td>{{$post->title}}
+                    </td>
+
+                    <td>{{$post->content}}</td>
                     @if (auth()->user())
                     <td>
                         <a href="/posts/edit/{{$post->id}}"
@@ -44,6 +46,15 @@
                             <button class="btn btn-danger"
                                 type="submit">Delete</button>
                         </form>
+                    </td>
+                    <td>
+
+                        <a href="/post/{{$post->id}}">
+                            <button class="btn btn-success">View Post
+                            </button>
+                        </a>
+
+
                     </td>
                     @endif
 
