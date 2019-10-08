@@ -4,7 +4,7 @@
 
 
 <div class="col-md-8 mb-5">
-    <a href="/" class="btn btn-outline-secondary"><i
+    <a href="/home" class="btn btn-outline-secondary"><i
             class="fas fa-chevron-left mr-2"></i>All Posts</a>
 </div>
 <div class="col-md-8">
